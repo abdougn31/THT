@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --accent-warn: #f59e0b;
+      --accent-danger: #ef4444;
+      --bg-main: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-tertiary: #94a3b8;
+      --border: #475569;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg-main) 0%, #1a1f3a 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .tht-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* ========== HEADER ========== */
+    .ch-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 40px 30px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    .ch-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ch-header p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    /* ========== TABS ========== */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* ========== TAB PANELS ========== */
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .section:hover {
+      border-color: var(--primary-light);
+      background: rgba(30, 41, 59, 0.6);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+    }
+
+    .section h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    /* ========== BADGES ========== */
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .badge-blue {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .badge-green {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(52, 211, 153, 0.2) 100%);
+      color: #6ee7b7;
+      border: 1px solid rgba(110, 231, 183, 0.3);
+    }
+
+    .badge-warn {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(251, 146, 60, 0.2) 100%);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .badge-red {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(248, 113, 113, 0.2) 100%);
+      color: #f87171;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+    }
+
+    /* ========== GRIDS & CARDS ========== */
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .mini-card {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .mini-card:hover {
+      border-color: var(--primary-light);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: white;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    /* ========== FORMULA BOX ========== */
+    .formula-box {
+      display: block;
+      padding: 20px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      color: #60a5fa;
+      overflow-x: auto;
+    }
+
+    .formula-box .label {
+      display: block;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ========== INFO BOXES ========== */
+    .tip {
+      padding: 16px 20px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.05) 100%);
+      border-left: 4px solid #60a5fa;
+      border-radius: 8px;
+      color: #cffafe;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: slideInLeft 0.4s ease-out;
+    }
+
+    .retenir {
+      padding: 16px 20px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(52, 211, 153, 0.05) 100%);
+      border-left: 4px solid #6ee7b7;
+      border-radius: 8px;
+      color: #a7f3d0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: slideInLeft 0.4s ease-out;
+    }
+
+    .warn {
+      padding: 16px 20px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(248, 113, 113, 0.05) 100%);
+      border-left: 4px solid #f87171;
+      border-radius: 8px;
+      color: #fca5a5;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: slideInLeft 0.4s ease-out;
+    }
+
+    /* ========== PILL ROW ========== */
+    .pill-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    /* ========== STEP ROWS ========== */
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin: 20px 0;
+      padding: 18px;
+      background: rgba(51, 65, 85, 0.3);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .step-row:hover {
+      background: rgba(51, 65, 85, 0.5);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .step-text {
+      flex: 1;
+      color: var(--text-secondary);
+      padding-top: 4px;
+      line-height: 1.6;
+    }
+
+    .step-text strong {
+      color: white;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .tht-wrap {
+        padding: 20px 16px;
+      }
+
+      .ch-header {
+        padding: 30px 20px;
+      }
+
+      .ch-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab-btn {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+
+      .step-row {
+        padding: 14px;
+      }
+
+      .step-num {
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+    }
+
+    /* ========== SCROLLBAR ========== */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="tht-wrap">
+  <div class="ch-header">
+    <h1>Cours — Techniques de la Haute Tension</h1>
+    <p>Dr. Benabed Fadila &nbsp;·&nbsp; Résumé pédagogique complet &nbsp;·&nbsp; 3 chapitres</p>
+  </div>
+
+  <!-- NAVIGATION TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('ch1')">Chapitre 1 — Généralités</button>
+    <button class="tab-btn" onclick="showTab('ch2')">Chapitre 2 — Champ électrique</button>
+    <button class="tab-btn" onclick="showTab('ch3')">Chapitre 3 — Décharges</button>
+  </div>
+
+  <!-- ==================== CHAPITRE 1 ==================== -->
+  <div class="tab-panel active" id="tab-ch1">
+
+    <div class="section">
+      <h2><span class="badge badge-blue">Intro</span> Pourquoi la haute tension ?</h2>
+      <p style="font-size:13px;line-height:1.6">L'électricité est produite loin des consommateurs. Pour la transporter efficacement sur de longues distances, on élève la tension afin de <strong>réduire les pertes par effet Joule</strong>.</p>
+      <div class="formula-box">
+        <span class="label">Réduction des pertes Joule par élévation de tension</span>
+        Pertes = R·(I/k)² = RI²/k²
+      </div>
+      <div class="tip">👉 Si on multiplie la tension par k, les pertes sont divisées par k². Ex : ×10 en tension → pertes ÷ 100 !</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-blue">Concept</span> Niveaux de tension normalisés</h2>
+      <div class="grid2">
+        <div class="mini-card"><strong>Basse tension (BT)</strong>120 V à 600 V</div>
+        <div class="mini-card"><strong>Moyenne tension (MT)</strong>2 400 V à 69 000 V</div>
+        <div class="mini-card"><strong>Haute tension (HT)</strong>115 kV à 230 kV</div>
+        <div class="mini-card"><strong>Très haute tension (THT)</strong>345 kV à 765 kV</div>
+      </div>
+      <div class="retenir">✅ Les courants transportés vont de 400 A à 3 000 A. Les réseaux de transport sont triphasés (sans neutre).</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-green">Isolants</span> Matériaux isolants</h2>
+      <h3>Propriétés physiques communes à tous les isolants</h3>
+      <div class="grid2">
+        <div class="mini-card"><strong>Rigidité électrique</strong>≈ 10 kV/mm</div>
+        <div class="mini-card"><strong>Résistivité</strong>> 10⁶ Ω·m</div>
+        <div class="mini-card"><strong>Permittivité relative</strong>εᵣ = 2 à 8</div>
+        <div class="mini-card"><strong>Tenue en température</strong>&lt; 200 °C (sauf verre, mica)</div>
+      </div>
+      <h3>Exemples par état</h3>
+      <div class="pill-row">
+        <span class="badge badge-blue">Solide</span>
+        <span style="font-size:12px">Mica, porcelaine, résine, papier, verre, XLPE</span>
+      </div>
+      <div class="pill-row">
+        <span class="badge badge-green">Liquide</span>
+        <span style="font-size:12px">Huile minérale, huile silicone</span>
+      </div>
+      <div class="pill-row">
+        <span class="badge badge-warn">Gaz</span>
+        <span style="font-size:12px">SF₆ (hexafluorure de soufre)</span>
+      </div>
+      <div class="warn">⚠️ Les askarels (PCB) sont interdits depuis 1986 en raison de leur toxicité.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-warn">Contraintes</span> Ce qui stresse l'isolation</h2>
+      <div class="grid2">
+        <div class="mini-card"><strong>Électriques</strong>Décharges partielles, surtensions, court-circuits</div>
+        <div class="mini-card"><strong>Thermiques</strong>Effet Joule, courants de Foucault, pertes diélectriques</div>
+        <div class="mini-card"><strong>Mécaniques</strong>Vibrations, surcharges, régimes transitoires</div>
+        <div class="mini-card"><strong>Environnementales</strong>Humidité, chaleur, pollution</div>
+      </div>
+      <div class="retenir">✅ À retenir : Les appareils HT utilisent SF₆ (disjoncteurs), huile minérale (transformateurs), résine (électronique HT).</div>
+    </div>
+
+  </div><!-- /ch1 -->
+
+  <!-- ==================== CHAPITRE 2 ==================== -->
+  <div class="tab-panel" id="tab-ch2">
+
+    <div class="section">
+      <h2><span class="badge badge-blue">Intro</span> Le champ électrique</h2>
+      <p style="font-size:13px;line-height:1.6">Le champ électrique naît d'une différence de tension entre deux électrodes. Il est crucial car une valeur trop élevée <strong>détruit les isolants</strong>.</p>
+      <div class="formula-box">
+        <span class="label">Champ entre deux plaques parallèles (champ uniforme)</span>
+        E = U / d
+      </div>
+      <div class="formula-box">
+        <span class="label">Facteur de Schwaiger η (efficacité du champ)</span>
+        η = Eₕ / Eₘₐₓ = U / (Eₘₐₓ · d)
+      </div>
+      <div class="tip">👉 η = 1 → champ parfaitement uniforme (plaques parallèles). Plus η est petit, plus le champ est non-uniforme et dangereux localement.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-green">Formules</span> Champ selon la géométrie</h2>
+
+      <h3>1. Ligne coaxiale (câble)</h3>
+      <div class="formula-box">E(r) = U / (r · ln(r₂/r₁)) &nbsp;·&nbsp; Eₘₐₓ à r = r₁ (conducteur interne)</div>
+
+      <h3>2. Deux sphères concentriques</h3>
+      <div class="formula-box">E(r) = (U / r²) · (r₁·r₂) / (r₂−r₁)</div>
+
+      <h3>3. Système sphère–plan</h3>
+      <div class="formula-box">E = 0,9 · (U/d) · (r+d)/r</div>
+
+      <h3>4. Système pointe–plan (champ axial)</h3>
+      <div class="formula-box">E(x) = (2U / ln(4d/r)) · d / (d(2x+r)−x²)</div>
+
+      <h3>5. Formule de Stephenson (claquage plan–plan dans l'air)</h3>
+      <div class="formula-box">Uₘₐₓ = 24,22·d + 6,08·√d &nbsp;&nbsp;(d en cm, U en kV)</div>
+      <div class="tip">👉 Cette formule donne la tension de claquage max dans l'air entre deux plaques — utile pour dimensionner les distances d'isolement.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-warn">Résumé</span> Comparatif des géométries</h2>
+      <div class="grid2">
+        <div class="mini-card"><strong>Plan–plan</strong>η = 1, champ uniforme, référence</div>
+        <div class="mini-card"><strong>Sphères concentriques</strong>η &lt; 1, plus le rayon interne est petit, plus E est fort</div>
+        <div class="mini-card"><strong>Sphère–plan</strong>Champ max à la surface de la sphère côté plan</div>
+        <div class="mini-card"><strong>Pointe–plan</strong>Très non-uniforme, η ≪ 1, amorçage facile</div>
+      </div>
+      <div class="retenir">✅ Plus les électrodes sont pointues, plus le champ est concentré localement → risque de décharge plus élevé !</div>
+    </div>
+
+  </div><!-- /ch2 -->
+
+  <!-- ==================== CHAPITRE 3 ==================== -->
+  <div class="tab-panel" id="tab-ch3">
+
+    <div class="section">
+      <h2><span class="badge badge-red">Intro</span> Décharges électriques dans les gaz</h2>
+      <p style="font-size:13px;line-height:1.6">Sous un champ électrique suffisant, un gaz peut devenir conducteur. Ce phénomène s'appelle une <strong>décharge électrique</strong>. Le claquage est le stade ultime (arc, étincelle).</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-blue">Mécanisme</span> Avalanche de Townsend</h2>
+      <div class="step-row"><div class="step-num">1</div><div class="step-text">Un <strong>électron germe</strong> apparaît (rayons cosmiques, ionisation naturelle)</div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text">Il est accéléré par le champ et <strong>ionise</strong> un atome → 2 électrons</div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text">Chaque électron ionise à son tour → <strong>avalanche exponentielle</strong></div></div>
+      <div class="step-row"><div class="step-num">4</div><div class="step-text">Si le critère d'auto-entretien est atteint → <strong>décharge autonome (claquage)</strong></div></div>
+
+      <div class="formula-box">
+        <span class="label">Relation de Townsend</span>
+        I = I₀ · exp(α·d)
+      </div>
+      <div class="formula-box">
+        <span class="label">Critère d'auto-entretien (claquage)</span>
+        γ · (exp(α·d) − 1) = 1
+      </div>
+      <div class="tip">👉 α = 1er coefficient de Townsend (ionisations/m) &nbsp;|&nbsp; γ = probabilité d'émission secondaire &nbsp;|&nbsp; d = distance inter-électrodes</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-green">Loi</span> Loi de Paschen</h2>
+      <p style="font-size:13px;line-height:1.6">La tension de claquage dépend du produit <strong>pression × distance</strong> (p·d).</p>
+      <div class="formula-box">
+        <span class="label">Tension disruptive</span>
+        Vs = B·p·d / [ln(A·p·d) − ln(ln(1 + 1/γ))]
+      </div>
+      <div class="warn">⚠️ Il existe un minimum sur la courbe de Paschen : en dessous d'une certaine valeur de p·d, le gaz claque plus facilement — même en réduisant la pression !</div>
+      <div class="grid2">
+        <div class="mini-card"><strong>Air</strong>Vs élevée (bon isolant à pression normale)</div>
+        <div class="mini-card"><strong>SF₆</strong>Courbe très différente — rigidité bien supérieure</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-warn">Mécanisme avancé</span> Théorie des streamers</h2>
+      <div class="step-row"><div class="step-num">1</div><div class="step-text">L'avalanche crée une <strong>charge d'espace</strong> (séparation e⁻ / ions⁺)</div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text">Un champ induit s'ajoute au champ extérieur → <strong>photo-ionisation</strong></div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text">Des avalanches secondaires se forment → canal de plasma quasi-neutre</div></div>
+      <div class="step-row"><div class="step-num">4</div><div class="step-text">Le <strong>streamer</strong> se propage entre les électrodes → claquage</div></div>
+      <div class="formula-box">
+        <span class="label">Critère de formation du streamer</span>
+        E' = (E/R²) · exp(α·d)  ≥  E_ext
+      </div>
+      <div class="tip">👉 Le mécanisme streamer est valable pour des valeurs p·d > 200 torr·cm (haute pression), là où Townsend ne suffit plus.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-red">Gaz</span> SF₆ — le gaz isolant par excellence</h2>
+      <div class="grid2">
+        <div class="mini-card"><strong>Rigidité diélectrique</strong>2,5× supérieure à l'air</div>
+        <div class="mini-card"><strong>Stabilité chimique</strong>Stable jusqu'à 800 °C</div>
+        <div class="mini-card"><strong>Propriété clé</strong>Capture les électrons libres (gaz électronégatif)</div>
+        <div class="mini-card"><strong>Usage principal</strong>Disjoncteurs HT, postes blindés (GIS)</div>
+      </div>
+      <div class="warn">⚠️ Impact environnemental : potentiel d'échauffement global du SF₆ = 23 900 × celui du CO₂ ! Des alternatives sont recherchées.</div>
+      <div class="retenir">✅ SF₆ capte les électrons grâce à ses atomes de fluor → ralentit le développement de la décharge → tenue diélectrique élevée.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-blue">Facteurs</span> Ce qui influence les décharges</h2>
+      <div class="grid2">
+        <div class="mini-card"><strong>Pression ↑</strong>Tension de claquage augmente (en général)</div>
+        <div class="mini-card"><strong>Géométrie des électrodes</strong>Surface grande → tension d'amorçage baisse</div>
+        <div class="mini-card"><strong>Particules métalliques</strong>Modifient le champ → favorisent la décharge</div>
+        <div class="mini-card"><strong>Impuretés du gaz</strong>Peu d'effet en champ uniforme, mais critiques en champ non-uniforme</div>
+      </div>
+    </div>
+
+  </div><!-- /ch3 -->
+
+  <!-- RÉSUMÉ FINAL -->
+  <div class="section" style="margin-top:1rem">
+    <h2>Points essentiels à retenir</h2>
+    <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>Haute tension</strong> = moyen de réduire les pertes Joule lors du transport d'énergie (pertes ÷ k²)</div></div>
+    <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>Isolants</strong> : solides (mica, résines), liquides (huile), gaz (SF₆) — chacun a ses applications</div></div>
+    <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Champ électrique</strong> : dépend de la géométrie ; η (Schwaiger) mesure l'uniformité</div></div>
+    <div class="step-row"><div class="step-num">4</div><div class="step-text"><strong>Avalanche de Townsend</strong> : mécanisme de base du claquage (basses pressions)</div></div>
+    <div class="step-row"><div class="step-num">5</div><div class="step-text"><strong>Streamer</strong> : mécanisme de claquage à haute pression (p·d > 200 torr·cm)</div></div>
+    <div class="step-row"><div class="step-num">6</div><div class="step-text"><strong>Loi de Paschen</strong> : Vs = f(p·d) — il existe un minimum de tension de claquage</div></div>
+    <div class="step-row"><div class="step-num">7</div><div class="step-text"><strong>SF₆</strong> : meilleur gaz isolant industriel, mais fort impact climatique (×23 900 CO₂)</div></div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
